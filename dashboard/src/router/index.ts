@@ -13,7 +13,7 @@ const Landing = () => import('@/components/landing/Landing.vue');
 const Settings = () => import('@/views/Settings.vue');
 const Extrinsics = () => import('@/views/Extrinsics.vue');
 const FourZeroFour = () => import('@/components/FourZeroFour.vue')
-// const Toolbox = () => import('@/components/toolbox/Toolbox.vue');
+const Identity = () => import('@/views/Identity.vue');
 
 export default new Router({
   mode: 'history',
@@ -38,6 +38,11 @@ export default new Router({
       name: 'extrinsics',
       component: Extrinsics,
       beforeEnter: apiEnabled,
+    },
+    {
+			path: '/identity',
+      name: 'identity',
+      component: Identity,
     },
 		{
 			path: '*',

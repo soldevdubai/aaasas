@@ -36,6 +36,11 @@
           </b-navbar-item>
           <b-navbar-item
             tag="router-link"
+            :to="{ name: 'identity'}">
+            {{ $t('Identity') }}
+          </b-navbar-item>
+          <b-navbar-item
+            tag="router-link"
             :to="{ name: 'settings'}">
             {{ $t('Settings') }}
           </b-navbar-item>
