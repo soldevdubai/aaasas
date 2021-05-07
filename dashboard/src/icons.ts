@@ -27,7 +27,7 @@ import {
   faGhost, faCode, faLeaf,
   faFlask, faCameraRetro, faTag,
   faShareAlt, faExclamationTriangle,
-  faCalendar, faCalculator
+  faCalendar, faCalculator, faEnvelope
 } from '@fortawesome/free-solid-svg-icons';
 
 // throws error, idk why
@@ -79,7 +79,7 @@ library.add(
   faWpexplorer,
   faRedditAlien, faCameraRetro,
   faTag, faShareAlt,
-  faExclamationTriangle, faCalculator
+  faExclamationTriangle, faCalculator, faEnvelope
   );
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';

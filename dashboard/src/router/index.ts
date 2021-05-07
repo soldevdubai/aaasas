@@ -14,6 +14,7 @@ const Sustainability = () => import('@/components/landing/Sustainability.vue');
 const Settings = () => import('@/views/Settings.vue');
 const Extrinsics = () => import('@/views/Extrinsics.vue');
 const FourZeroFour = () => import('@/components/FourZeroFour.vue')
+const Login = () => import('@/views/Login.vue');
 // const Toolbox = () => import('@/components/toolbox/Toolbox.vue');
 
 export default new Router({
@@ -44,6 +45,11 @@ export default new Router({
       name: 'extrinsics',
       component: Extrinsics,
       beforeEnter: apiEnabled,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
 		{
 			path: '*',

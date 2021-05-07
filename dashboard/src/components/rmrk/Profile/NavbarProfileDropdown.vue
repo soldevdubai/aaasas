@@ -56,6 +56,8 @@
         v-model="account"
         :tooltipVisible="false"
       />
+
+      <a class="mt-1">alternative login</a>
     </b-dropdown-item>
   </b-dropdown>
 </template>
