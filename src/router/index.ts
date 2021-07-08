@@ -22,7 +22,7 @@ const Contact = () => import('@/components/landing/Contact.vue');
 const Partnership = () => import('@/components/landing/Partnership.vue');
 const Tutorials = () => import('@/components/landing/Tutorials.vue');
 const FourZeroFour = () => import('@/components/FourZeroFour.vue')
-// const Toolbox = () => import('@/components/toolbox/Toolbox.vue');
+const Login = () => import('@/views/Login.vue');
 
 export default new Router({
   mode: 'history',
@@ -92,6 +92,11 @@ export default new Router({
       path: '/tutorials',
       name: 'tutorials',
       component: Tutorials,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
     },
     {
       path: '/grants',

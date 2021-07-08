@@ -1,5 +1,5 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import keyring, { Keyring } from '@polkadot/ui-keyring';
+import keyring from '@polkadot/ui-keyring';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { u8aToHex } from '@polkadot/util';
@@ -12,6 +12,7 @@ import {
   isWeb3Injected
 } from '@polkadot/extension-dapp';
 import { getPrefixByStoreUrl } from '@/utils/chain'
+import getMagicInstance from '@/magic';
 
 export type KeyringAccount = KeyringPair | InjectedAccountWithMeta;
 
@@ -20,6 +21,7 @@ export default class WithKeyring extends Vue {
   protected keyringLoaded: boolean = false;
   protected keyringAccounts: KeyringPair[] = [];
   protected importedAccounts: InjectedAccountWithMeta[] = [];
+  protected magicAccounts: InjectedAccountWithMeta[] = [];
   protected keys: any = '';
 
   public async mountWasmCrypto(): Promise<void> {
@@ -34,6 +36,7 @@ export default class WithKeyring extends Vue {
     this.keys = keyring;
     this.mapAccounts();
     await this.extensionAccounts();
+    await this.loadMagicAccounts();
   }
 
   public mapAccounts(): void {
@@ -57,13 +60,24 @@ export default class WithKeyring extends Vue {
     this.importedAccounts = await web3Accounts({ ss58Format: correctFormat(this.ss58Format) >= 0 ? correctFormat(this.ss58Format) : correctFormat(this.prefixByStore)  });
   }
 
+  public async loadMagicAccounts() {
+    const magic = getMagicInstance()
+    const magicIsLoggedIn = magic.user.isLoggedIn()
+    if (await magicIsLoggedIn) {
+      const acc = await (magic.polkadot as any).getAccount();
+      this.magicAccounts = [{ address: keyring.encodeAddress(acc, correctFormat(this.ss58Format)), meta: {source: 'magic', name: 'Email'} }]
+      return this.magicAccounts[0].address;
+   }
+  }
+
   get prefixByStore() {
     return correctFormat(getPrefixByStoreUrl())
   }
 
   public allAcctounts(): KeyringAccount[] {
-    return [...this.keyringAccounts, ...this.importedAccounts]
+    return [...this.keyringAccounts, ...this.importedAccounts, ...this.magicAccounts]
   }
+
 
   public created(): void {
     this.mountWasmCrypto();

@@ -32,7 +32,7 @@ import {
   faYoutube
 } from '@fortawesome/free-brands-svg-icons';
 
-import { library, IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { library } from '@fortawesome/fontawesome-svg-core';
 
 library.add(
   faPaperPlane, faFileImage, faPlus,
@@ -54,7 +54,7 @@ library.add(
   faTag, faShareAlt,
   faExclamationTriangle, faCalculator,
   faArrowsAlt, faCompressAlt, faCompressArrowsAlt,
-  faEyeSlash, faArrowUp,
+  faEyeSlash, faArrowUp, faEnvelope,
 
   // Social
   faTwitter, faTelegram, faFacebook,

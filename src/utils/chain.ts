@@ -66,6 +66,8 @@ export const getPrefixByStoreUrl = (): string | undefined => {
   return getChainPrefixByUrl(apiUrl)
 }
 
+export const getStoreUrl = (): string => store.getters.getSettings.apiUrl;
+
 export const getChainPrefixByUrl = (url: string): string | undefined => {
   const option =  ENDPOINTS.find(({ value }) => value === url);
   if (!option) {

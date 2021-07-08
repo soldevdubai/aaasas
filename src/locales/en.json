@@ -190,5 +190,10 @@
     "collectors": "Collectors",
     "score": "Score",
     "empty": "Empty"
+  },
+  "login": {
+    "title": "Title",
+    "mail": "Mail",
+    "submit": "Submit"
   }
 }
