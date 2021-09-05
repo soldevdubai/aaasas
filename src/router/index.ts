@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 Vue.use(Router);
-import { apiEnabled } from '@/routeGuard';
 
 import Transfer from '@/router/transfer';
 import Toolbox from '@/router/toolbox';

@@ -1,8 +1,8 @@
 import { Row } from '@/components/spotlight/types'
-import M, { Query, Aggregator } from 'mingo'
+import { Query, Aggregator } from 'mingo'
 import { Collection as Aggregation } from 'mingo/core'
 import { NFTWithMeta } from '../../service/scheme'
-import { SortBy, QueryType, SearchQuery } from './types'
+import { QueryType, SearchQuery } from './types'
 
 export const basicFilterQuery = (value: string): Query => {
   const rr: RegExp = new RegExp(value, 'i')

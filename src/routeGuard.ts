@@ -1,6 +1,5 @@
 import Connector from '@vue-polkadot/vue-api';
 import { NotificationProgrammatic as Notification } from 'buefy';
-import Router from 'vue-router';
 
 export const apiEnabled = (to: any, from: any, next: any) => {
   if (Connector.getInstance().api) {

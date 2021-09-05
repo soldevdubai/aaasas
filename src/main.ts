@@ -40,7 +40,6 @@ import { $match, $group, $project } from 'mingo/operators/pipeline'
 import { $sum, $first, $push, $avg } from 'mingo/operators/accumulator'
 // import { $setUnion } from 'mingo/operators/expression/set'
 import apolloClient from './subquery';
-import { resolveSubsocialApi } from './components/subsocial/api';
 // import { resolveSubsocialApi } from '@/components/subsocial/api';
 
 // ensure the required operators are preloaded prior to using them.
