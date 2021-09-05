@@ -1,4 +1,4 @@
-const Profile = () => import('@/views/Profile.vue')
+const Profile = () => import(/* webpackChunkName:'profile' */ '@/views/Profile.vue')
 
 export default [
   {

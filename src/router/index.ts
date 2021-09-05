@@ -14,14 +14,12 @@ const EsSustainability = () => import('@/components/landing/EsSustainability.vue
 const Carbonless = () => import('@/components/landing/Carbonless.vue');
 const EsCarbonless = () => import('@/components/landing/EsCarbonless.vue');
 const Settings = () => import('@/views/Settings.vue');
-const Extrinsics = () => import('@/views/Extrinsics.vue');
 const Spotlight = () => import('@/components/landing/Spotlight.vue');
 const About = () => import('@/components/landing/About.vue');
 const Contact = () => import('@/components/landing/Contact.vue');
 const Partnership = () => import('@/components/landing/Partnership.vue');
 const Tutorials = () => import('@/components/landing/Tutorials.vue');
 const FourZeroFour = () => import('@/components/FourZeroFour.vue')
-// const Toolbox = () => import('@/components/toolbox/Toolbox.vue');
 
 export default new Router({
   mode: 'history',
@@ -61,12 +59,6 @@ export default new Router({
       component: Settings
     },
     {
-			path: '/extrinsics',
-      name: 'extrinsics',
-      component: Extrinsics,
-      beforeEnter: apiEnabled,
-    },
-    {
       path: '/spotlight',
       name: 'spotlight',
       component: Spotlight,
@@ -95,7 +87,7 @@ export default new Router({
       path: '/grants',
       name: 'grants',
       component: {},
-      beforeEnter(to, from, next) {
+      beforeEnter() {
         window.location.href = 'https://tally.so/r/mVP06w'
       }
     },
