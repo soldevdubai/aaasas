@@ -7,18 +7,18 @@ import Toolbox from '@/router/toolbox';
 import Rmrk from '@/router/rmrk';
 import Profile from '@/router/profile';
 
-const Landing = () => import('@/components/landing/Landing.vue');
-const Sustainability = () => import('@/components/landing/Sustainability.vue');
-const EsSustainability = () => import('@/components/landing/EsSustainability.vue');
-const Carbonless = () => import('@/components/landing/Carbonless.vue');
-const EsCarbonless = () => import('@/components/landing/EsCarbonless.vue');
-const Settings = () => import('@/views/Settings.vue');
-const Spotlight = () => import('@/components/landing/Spotlight.vue');
-const About = () => import('@/components/landing/About.vue');
-const Contact = () => import('@/components/landing/Contact.vue');
-const Partnership = () => import('@/components/landing/Partnership.vue');
-const Tutorials = () => import('@/components/landing/Tutorials.vue');
-const FourZeroFour = () => import('@/components/FourZeroFour.vue')
+const Landing = () => import(/* webpackChunkName:'landing' */ '@/components/landing/Landing.vue');
+const Sustainability = () => import(/* webpackChunkName:'sustainability' */ '@/components/landing/Sustainability.vue');
+const EsSustainability = () => import(/* webpackChunkName:'sustainability' */ '@/components/landing/EsSustainability.vue');
+const Carbonless = () => import(/* webpackChunkName:'carbonless' */  '@/components/landing/Carbonless.vue');
+const EsCarbonless = () => import(/* webpackChunkName:'carbonless' */  '@/components/landing/EsCarbonless.vue');
+const Settings = () => import(/* webpackChunkName:'settings' */ '@/views/Settings.vue');
+const Spotlight = () => import(/* webpackChunkName:'spotlight' */ '@/components/landing/Spotlight.vue');
+const About = () => import(/* webpackChunkName:'about' */  '@/components/landing/About.vue');
+const Contact = () => import(/* webpackChunkName:'contact' */ '@/components/landing/Contact.vue');
+const Partnership = () => import(/* webpackChunkName:'partnership' */ '@/components/landing/Partnership.vue');
+const Tutorials = () => import(/* webpackChunkName:'tutorials' */ '@/components/landing/Tutorials.vue');
+const FourZeroFour = () => import(/* webpackChunkName:'404' */ '@/components/FourZeroFour.vue')
 
 export default new Router({
   mode: 'history',
