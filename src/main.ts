@@ -27,17 +27,7 @@ import Connector from '@vue-polkadot/vue-api';
 import { enableExtension } from './extension'
 import 'setimmediate';
 import i18n from './i18n'
-
-import { useOperators, OperatorType } from 'mingo/core'
-import { $match, $group, $project } from 'mingo/operators/pipeline'
-import { $sum, $first, $push, $avg } from 'mingo/operators/accumulator'
-
 import apolloClient from './subquery';
-
-type OperatorMap = Record<string, any> ;
-useOperators(OperatorType.PIPELINE, { $match, $group, $project } as OperatorMap)
-useOperators(OperatorType.ACCUMULATOR, { $sum, $first, $push, $avg } as OperatorMap)
-// useOperators(OperatorType.EXPRESSION, { $setUnion } as OperatorMap)
 
 Vue.filter('shortAddress', shortAddress);
 

@@ -4,6 +4,14 @@ import { Collection as Aggregation } from 'mingo/core'
 import { NFTWithMeta } from '../../service/scheme'
 import { QueryType, SearchQuery } from './types'
 
+import { useOperators, OperatorType } from 'mingo/core'
+import { $match, $group, $project } from 'mingo/operators/pipeline'
+import { $sum, $first, $push, $avg } from 'mingo/operators/accumulator'
+
+type OperatorMap = Record<string, any> ;
+useOperators(OperatorType.PIPELINE, { $match, $group, $project } as OperatorMap)
+useOperators(OperatorType.ACCUMULATOR, { $sum, $first, $push, $avg } as OperatorMap)
+
 export const basicFilterQuery = (value: string): Query => {
   const rr: RegExp = new RegExp(value, 'i')
   const criteria: QueryType = basicCriteria(rr)
