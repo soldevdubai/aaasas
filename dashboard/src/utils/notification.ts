@@ -1,6 +1,11 @@
 import { NotificationProgrammatic as Notification } from 'buefy';
 
-export const notificationTypes: any = {
+export type NotificationType = { type: string, actionText: string }
+export type AvailableNotification = 'success' | 'info' | 'danger'
+export type NotificationList = Record<AvailableNotification, NotificationType>
+
+
+export const notificationTypes: NotificationList = {
 	success: {
 		type: 'is-success',
 		actionText: 'OK',

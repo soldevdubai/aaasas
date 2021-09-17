@@ -1,37 +1,47 @@
 <template>
-  <div>
-    <SidebarMenu class="should-be-sidebar" @toggle="toggleSidebar" />
-    <!-- <div id="dashboard" v-if="online"> -->
-      <router-view id="routerview" :class="{'sidebar__active': !sidebarClosed }" />
-    <!-- </div> -->
-    <!-- <div v-else> -->
-      <!-- <Offline /> -->
-    <!-- </div> -->
+  <div class="container is-max-desktop">
+    <Navbar/>
+    <router-view id="routerview" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import Offline from './components/offline/Offline.vue'
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import keyring from '@polkadot/ui-keyring';
-import SidebarMenu from './components/SidebarMenu.vue';
+import Navbar from './components/Navbar.vue';
 import Connector from '@vue-polkadot/vue-api';
 
-@Component({
-  components: {
-    SidebarMenu,
-    Offline,
+@Component<Dashboard>({
+  metaInfo() {
+    return {
+      title: 'KodaDot 🖼👀 First Polkadot/Kusama NFT Market Explorer',
+      titleTemplate: '%s | KodaDot',
+      meta: [{ 
+        vmid: 'description',
+        name: 'description',
+        content: 'KodaDot 🖼👀 First Polkadot/Kusama NFT Market Explorer'
+      },
+      { property: 'og:title', content: 'KodaDot 🖼👀 First Polkadot/Kusama NFT Market Explorer' },
+      { property: 'og:type', content: 'website'},
+      { property: 'og:url', content: 'https://kodadot.xyz'},
+      { property: 'og:description', content: 'KodaDot 🖼👀 First Polkadot/Kusama NFT Market Explorer' },
+      { property: 'og:site_name', content: 'KodaDot 🖼👀 First Polkadot/Kusama NFT Market Explorer'},
+      // { property: 'og:image', content: '/img/icons/android-chrome-256x256.png'}
+      { property: 'og:locale', content: 'en_US'},
+      { property: 'twitter:card', content: 'summary_large_image' },
+      { property: 'twitter:site', content: '@KodaDot' },
+      { property: 'twitter:title', content: 'KodaDot 🖼👀 First Polkadot/Kusama NFT Market Explorer' },
+      { property: 'twitter:description', content: 'KodaDot 🖼👀 First Polkadot/Kusama NFT Market Explorer' },
+      // { property: 'twitter:image', content: (this.nft.image as string) },
+      ]
+    }
   },
+  components: {
+    Navbar,
+  }
 })
 export default class Dashboard extends Vue {
-  private sidebarClosed: boolean = true;
-  private online: boolean = false;
-
-  private toggleSidebar(val: boolean) {
-    this.sidebarClosed = val;
-  }
-
   get chainProperties() {
     return this.$store.getters.getChainProperties;
   }
@@ -44,7 +54,7 @@ export default class Dashboard extends Vue {
     keyring.loadAll({
       ss58Format: this.ss58Format || 42,
       type: 'sr25519',
-      isDevelopment: this.$store.state.development.status || false,
+      isDevelopment: process.env.VUE_APP_KEYRING === 'true' || false,
     });
   }
 
@@ -59,34 +69,16 @@ export default class Dashboard extends Vue {
 
   public mounted(): void {
     this.mountWasmCrypto();
-    this.online = navigator.onLine
-    window.addEventListener('online', () => this.online = true)
-    window.addEventListener('offline', () => this.online = false)
   }
 }
 </script>
 
 <style lang="scss">
-.should-be-sidebar {
-  width: 5em;
-  height: 100%;
-  float: left;
-  height: 100%;
-  position: fixed;
-}
-
-#routerview {
-  margin-left: 5em;
-  padding: 0.6em;
-}
-
-#routerview.sidebar__active {
-  margin-left: 16.5em;
-}
 
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
 @import "./colors";
+@import "./layout";
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
@@ -99,6 +91,12 @@ $colors: (
     "success": ($success, $success-invert),
     "warning": ($warning, $warning-invert),
     "danger": ($danger, $danger-invert),
+);
+
+$layout: (
+    "container-offset": ($container-offset),
+    "container-max-width": ($container-max-width),
+    "tablet": ($tablet),
 );
 
 // Links

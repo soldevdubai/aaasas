@@ -4,6 +4,8 @@ import VuexPersist from 'vuex-persist';
 import SettingModule from '@vue-polkadot/vue-settings';
 import Connector from '@vue-polkadot/vue-api';
 import IdentityModule from './vuex/IdentityModule';
+import { getInstance } from '@/components/rmrk/service/RmrkService';
+import { changeCurrentColor } from '@/colors'
 
 const vuexLocalStorage = new VuexPersist({
   key: 'vuex',
@@ -17,17 +19,29 @@ interface ChangeUrlAction {
 
 const apiPlugin = (store: any) => {
   const { getInstance: Api } = Connector
+  
   Api().on('connect', async (api: any) => {
-    const { chainSS58, chainDecimals, chainToken  } = api.registry
+    const { chainSS58, chainDecimals, chainTokens  } = api.registry
     const {genesisHash} = api
     console.log('[API] Connect to <3', store.state.setting.apiUrl, 
-      { chainSS58, chainDecimals, chainToken, genesisHash});
+      { chainSS58, chainDecimals, chainTokens, genesisHash});
     store.commit('setChainProperties', {
       ss58Format: chainSS58 || 42,
-      tokenDecimals: chainDecimals || 12,
-      tokenSymbol: chainToken || 'Unit',
+      tokenDecimals: chainDecimals[0] || 12,
+      tokenSymbol: chainTokens[0] || 'Unit',
       genesisHash: genesisHash || ''
     })
+    
+    const rmrkService = getInstance();
+
+    if (rmrkService) {
+      try {
+        rmrkService.onUrlChange(chainSS58)
+      } catch (e) {
+        console.warn('[RMRK API] error', e);
+      }   
+    }
+
     const nodeInfo = store.getters.availableNodes
         .filter((o:any) => o.value === store.state.setting.apiUrl)
         .map((o:any) => {return o.info})[0]
@@ -36,6 +50,7 @@ const apiPlugin = (store: any) => {
   Api().on('error', async (error: Error) => {
     store.commit('setError', error);
     console.warn('[API] error', error);
+    // Api().disconnect()
   })
 }
 
@@ -50,13 +65,9 @@ const myPlugin = (store: any) => {
       Api().connect(payload)
     }
   })
-  // // called when the store is initialized
-  // store.subscribe(({ type, payload }: any, state: any) => {
-  //   if (type === 'setSettings' && payload.apiUrl) {
-  //     Connector.getInstance().changeApiUrl(payload.apiUrl);
-  //   }
-  // });
 };
+
+// TODO: create instance of Texitle here as plugin
 
 Vue.use(Vuex);
 
@@ -66,6 +77,32 @@ export default new Vuex.Store({
     keyringLoaded: false,
     chainProperties: {},
     explorer: {},
+    lang: {},
+    language: {
+      userLang: process.env.VUE_APP_I18N_LOCALE || 'en',
+      langsFlags: [
+        // ['cn', '🇨🇳'],
+        // ['de', '🇩🇪'],
+        // ['ua', '🇺🇦'],
+        // ['it', '🇮🇹'],
+        // ['hi', '🇮🇳'],
+        // ['ko', '🇰🇷'], 
+        // ['nl', '🇳🇱'],
+        ['en', '🇬🇧'],
+        ['bn', '🇧🇩'],
+        ['cz', '🇨🇿'],
+        ['es', '🇪🇸'],
+        ['fr', '🇫🇷'],
+        ['jp', '🇯🇵'],
+        ['pl', '🇵🇱'],
+        ['pt', '🇵🇹'],
+        ['sk', '🇸🇰'],
+        ['tu', '🇹🇷'],
+        ['ur', '🇵🇰'],
+        ['vt', '🇻🇳'],
+        ['ru', '🇷🇺'],
+      ]
+    },
     explorerOptions: {},
     development: {},
     error: null,
@@ -83,6 +120,9 @@ export default new Vuex.Store({
     setExplorer(state: any, data) {
       state.explorer = Object.assign(state.explorer, data)
     },
+    setLanguage(state: any, data) {
+      state.language = Object.assign(state.language, data)
+    },
     setExplorerOptions(state: any, data) {
       state.explorerOptions = Object.assign({}, data)
     },
@@ -95,7 +135,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getChainProperties: ({chainProperties}) => chainProperties
+    getChainProperties: ({chainProperties}) => chainProperties,
+    getUserLang: ({ language }) => language.userLang || 'en'
   },
   modules: {
     setting: SettingModule,
