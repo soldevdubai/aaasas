@@ -12,14 +12,16 @@ import {
   faArrowUp, faTools, faCheck, faSeedling, faDatabase, faGem, 
   faInfoCircle, faExchangeAlt, faBug, faStop, faEllipsisV, faPercent,
   faUsersCog, faCoins, faAngleLeft, faAngleRight,
-  faCreditCard, faStepForward
+  faCreditCard, faStepForward, faVrCardboard
 } from '@fortawesome/free-solid-svg-icons';
 
-import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faTwitter, faGalacticSenate 
+} from '@fortawesome/free-brands-svg-icons';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 
-library.add(faTrash, faKey, faSync, faRedo,
+library.add(
+  faTrash, faKey, faSync, faRedo,
   faCloudDownloadAlt, faPlay, faFolderOpen,
   faUsers, faAddressBook, faPaperPlane,
   faCalendarCheck, faCogs, faEye, faEyeSlash,
@@ -28,9 +30,11 @@ library.add(faTrash, faKey, faSync, faRedo,
   faCaretUp, faMinus, faFile, faBook,
   faCodeBranch, faSearch, faQuestionCircle, faExternalLinkAlt,
   faTwitter, faArrowUp, faTools, faCheck, faSeedling, 
-  faDatabase, faGem,  faInfoCircle, faExchangeAlt,
-  faBug, faStop, faEllipsisV, faPercent, faUsersCog, faCoins,
-  faAngleLeft, faAngleRight, faCreditCard, faStepForward
+  faGalacticSenate, faDatabase, faGem,
+  faTwitter, faArrowUp, faTools, faCheck,
+  faInfoCircle, faExchangeAlt, faVrCardboard, faBug,
+  faStop, faEllipsisV, faPercent, faUsersCog, faCoins,
+  faAngleLeft, faAngleRight, faCreditCard, faStepForward, faVrCardboard
   );
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';

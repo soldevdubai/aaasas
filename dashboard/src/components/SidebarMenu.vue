@@ -28,6 +28,7 @@
             v-bind:key="row.name"
             @click="currentRow = row"
             :icon="row.icon"
+            :icon-pack="row.pack"
             :label="row.name"
             :tag="row.tag"
             :to="row.to"
@@ -133,9 +134,10 @@ export default class SidebarMenu extends Vue {
       tag: 'router-link'
     },
     {
-      name: 'Debug',
-      icon: 'bug',
-      to: { name: 'debug' },
+      name: 'AR/VR',
+      icon: 'vr-cardboard',
+      to: { name: 'arvr' },
+      tag: 'router-link'
     },
     {
       name: 'RPC',
