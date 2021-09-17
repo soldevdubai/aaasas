@@ -1,18 +1,18 @@
 <template>
   <div id="transfer">
-    <DisabledInput v-if="conn.chainName" 
+    <DisabledInput v-if="conn.chainName"
       label="Chain" :value="conn.chainName" />
     <DisabledInput v-if="conn.blockNumber"
       label="Best Block" :value="conn.blockNumber" />
 		<b-field v-else>
-			<p class="has-text-danger">You are not connected. 
+			<p class="has-text-danger">You are not connected.
 				<router-link :to="{ name: 'settings' }">
 				Go to settings and pick node</router-link>
 			</p>
 		</b-field>
     <Dropdown mode='accounts' :externalAddress="transfer.from"
 			@selected="handleAccountSelectionFrom" />
-		<Dropdown :externalAddress="transfer.to"
+    <Dropdown :externalAddress="transfer.to"
 			@selected="handleAccountSelectionTo" />
     <Balance :argument="{ name: 'balance', type: 'balance' }" @selected="handleValue"  />
     <b-field label="password 🤫 magic spell" class="password-wrapper">
@@ -28,12 +28,12 @@
         @click="shipIt">
 				Make Transfer
       </b-button>
-      <b-button v-if="tx" tag="a" target="_blank" :href="getExplorerUrl(tx)" 
+      <b-button v-if="tx" tag="a" target="_blank" :href="getExplorerUrl(tx)"
         icon-left="external-link-alt">
         View {{ tx.slice(0, 10) }}
       </b-button>
     </div>
-  </div>  
+  </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
@@ -48,7 +48,7 @@ import DisabledInput from '@/components/shared/DisabledInput.vue';
 import Connector from '@vue-polkadot/vue-api';
 import { urlBuilderTransaction } from '@/utils/explorerGuide';
 import shortAddress from '@/utils/shortAddress';
-import exec from '@/utils/transactionExecutor';
+import exec, { execResultValue } from '@/utils/transactionExecutor';
 import { showNotification } from '@/utils/notification';
 
 @Component({
@@ -95,8 +95,8 @@ export default class Transfer extends Vue {
   };
 
   getExplorerUrl(value: string) {
-    return urlBuilderTransaction(value, 
-      this.$store.state.explorer.chain, 
+    return urlBuilderTransaction(value,
+      this.$store.state.explorer.chain,
       this.$store.state.explorer.provider)
   }
 
@@ -108,7 +108,7 @@ export default class Transfer extends Vue {
         showNotification('Dispatched');
         console.log([this.accountTo.address, this.balance])
         const tx = await exec(this.accountFrom.address, this.password, api.tx.balances.transfer, [this.accountTo.address, this.balance?.toString()]);
-        showNotification(tx, this.snackbarTypes.success);
+        showNotification(execResultValue(tx), this.snackbarTypes.success);
       } catch (e) {
         console.error('[ERR: TRANSFER SUBMIT]', e)
         showNotification(e.message, this.snackbarTypes.danger);
